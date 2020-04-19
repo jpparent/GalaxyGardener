@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 1ec676608ed7d3c4ca52cd160befc415
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - m_cropReference: {fileID: 408928706071511114, guid: 59bfd5574bd1ff1429b2db6ec6bdf0b9, type: 3}
+  - m_tilemap: {instanceID: 0}
+  - highlightTile: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
