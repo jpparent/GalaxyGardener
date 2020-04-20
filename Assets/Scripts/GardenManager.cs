@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Tilemaps;
 
 public class GardenManager : MonoBehaviour
@@ -10,6 +11,10 @@ public class GardenManager : MonoBehaviour
 	public int MAX_STOMACH_POINTS = 2;
 	public int MAX_FOOD_RESERVE = 4;
 	public int DAYS_TO_SURVIVE = 10;
+
+	public UnityAction<int> HealthPointsChangeEvent;
+	public UnityAction<int> StomachPointsChangeEvent;
+	public UnityAction<int> FoodReserveChangeEvent;
 
 	public GameObject m_cropReference;
 	public Tilemap m_tilemap;
@@ -67,19 +72,19 @@ public class GardenManager : MonoBehaviour
 
 	private void UpdateHealth()
 	{
-		if ( IsStomachFull )
+		if ( IsStomachFull && !IsHealthFull )
 		{
-			if ( !IsHealthFull )
-			{
-				++m_healthPoints;
-			}
+			++m_healthPoints;
+			HealthPointsChangeEvent?.Invoke( m_healthPoints );
 		}
 		else if ( IsStomachEmpty )
 		{
 			--m_healthPoints;
+			HealthPointsChangeEvent?.Invoke( m_healthPoints );
 		}
 
 		m_stomachPoints = 0;
+		StomachPointsChangeEvent?.Invoke( m_stomachPoints );
 	}
 
 	private void GameOver()
@@ -138,6 +143,9 @@ public class GardenManager : MonoBehaviour
 		{
 			--m_foodReserve;
 			++m_stomachPoints;
+
+			FoodReserveChangeEvent?.Invoke( m_foodReserve );
+			StomachPointsChangeEvent?.Invoke( m_stomachPoints );
 		}
 	}
 
