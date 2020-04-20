@@ -7,6 +7,8 @@ public class UIManager : MonoBehaviour
 {
 	public UIDayUpdater m_dayUpdater;
 	public UIHealthUpdater m_healthUpdater;
+	public UIStomachUpdater m_stomachUpdater;
+
 	public DayManager m_dayManager;
 	public GardenManager m_gardenManager;
 
@@ -22,11 +24,8 @@ public class UIManager : MonoBehaviour
 
 		m_healthUpdater = FindObjectOfType<UIHealthUpdater>();
 		m_gardenManager.HealthPointsChangeEvent += ( int x ) => { m_healthUpdater.UpdateUI( x ); };
+
+		m_stomachUpdater = FindObjectOfType<UIStomachUpdater>();
+		m_gardenManager.StomachPointsChangeEvent += m_stomachUpdater.UpdateUI;
 	}
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 }
