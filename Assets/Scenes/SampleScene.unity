@@ -1845,10 +1845,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: MainPixelPerfectCamera
       objectReference: {fileID: 0}
-    - target: {fileID: 4349683702941435562, guid: 081bfc5aedbfb574dbbcd6bb66a5173c, type: 3}
-      propertyPath: orthographic size
-      value: 5
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 081bfc5aedbfb574dbbcd6bb66a5173c, type: 3}
 --- !u!1001 &5259604705639133512
