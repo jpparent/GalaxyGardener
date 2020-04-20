@@ -44,9 +44,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ec676608ed7d3c4ca52cd160befc415, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MAX_HEALTH_POINTS: 3
+  MAX_STOMACH_POINTS: 2
+  MAX_FOOD_RESERVE: 0
+  DAYS_TO_SURVIVE: 10
   m_cropReference: {fileID: 408928706071511114, guid: 59bfd5574bd1ff1429b2db6ec6bdf0b9, type: 3}
   m_tilemap: {fileID: 0}
   highlightTile: {fileID: 0}
+  m_startingHealth: 3
 --- !u!114 &-6015426025459660055
 MonoBehaviour:
   m_ObjectHideFlags: 0

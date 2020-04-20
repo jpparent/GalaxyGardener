@@ -22,9 +22,10 @@ public class GardenManager : MonoBehaviour
 
 	public int m_startingHealth = 3;
 
-	public bool IsStomachFull { get => m_stomachPoints == MAX_STOMACH_POINTS; }
-	public bool IsStomachEmpty { get => m_stomachPoints == 0; }
-	public bool IsHealthFull { get => m_healthPoints == MAX_HEALTH_POINTS; }
+	public bool IsStomachFull => m_stomachPoints == MAX_STOMACH_POINTS;
+	public bool IsStomachEmpty => m_stomachPoints == 0;
+	public bool IsHealthFull => m_healthPoints == MAX_HEALTH_POINTS;
+	public bool IsReservFull => m_foodReserve == MAX_FOOD_RESERVE;
 
 	private Dictionary<string, GameObject> m_positionCropsList = new Dictionary<string, GameObject>();
 	private Vector3Int m_hoveredCellGridPos;
@@ -54,7 +55,7 @@ public class GardenManager : MonoBehaviour
 			GameOver();
 		}
 
-		if (day == DAYS_TO_SURVIVE )
+		if ( day == DAYS_TO_SURVIVE )
 		{
 			Win();
 		}
@@ -104,8 +105,7 @@ public class GardenManager : MonoBehaviour
 			{
 				if ( !m_positionCropsList.ContainsKey( m_hoveredCellGridPos.ToString() ) )
 				{
-					var newCrop = Instantiate( m_cropReference, m_hoveredCellCenterPos, Quaternion.identity );
-					m_positionCropsList.Add( m_hoveredCellGridPos.ToString(), newCrop );
+					PlantSeeds();
 				}
 				else
 				{
@@ -113,14 +113,47 @@ public class GardenManager : MonoBehaviour
 					var selectedCrop = selectedObject.GetComponent<GrowBehavior>();
 					if ( selectedCrop.IsFullyGrown() )
 					{
-						m_foodReserve += selectedCrop.Harvest();
-						m_positionCropsList.Remove( m_hoveredCellGridPos.ToString() );
+						HarvestCrop( selectedCrop );
 					}
 				}
 			}
+		}
+	}
 
+	// feed the stomach first then put leftover in food reserve
+	private void HarvestCrop( GrowBehavior selectedCrop )
+	{
+		int foodToDistribute = selectedCrop.Harvest();
+
+		if ( !IsStomachFull )
+		{
+			int stomachPointsAvailable = MAX_STOMACH_POINTS - m_stomachPoints;
+			int stomachPointsToAdd = foodToDistribute >= stomachPointsAvailable ? stomachPointsAvailable : foodToDistribute;
+			AddStomachPoints( stomachPointsToAdd );
+
+			foodToDistribute -= stomachPointsToAdd;
 		}
 
+		if ( foodToDistribute > 0 && !IsReservFull )
+		{
+			int reservePointsAvailable = MAX_FOOD_RESERVE - m_foodReserve;
+			int reservePointsToAdd = foodToDistribute >= reservePointsAvailable ? reservePointsAvailable : foodToDistribute;
+			AddReservePoints( reservePointsToAdd );
+		}
+
+		m_positionCropsList.Remove( m_hoveredCellGridPos.ToString() );
+	}
+
+	private void AddStomachPoints( int stomachPointsToAdd )
+	{
+		m_stomachPoints += stomachPointsToAdd;
+		StomachPointsChangeEvent?.Invoke( m_stomachPoints );
+	}
+
+	private void PlantSeeds()
+	{
+		var newCrop = Instantiate( m_cropReference, m_hoveredCellCenterPos, Quaternion.identity );
+		m_positionCropsList.Add( m_hoveredCellGridPos.ToString(), newCrop );
 	}
 
 	private void UpdateTileHighlight()
@@ -133,20 +166,22 @@ public class GardenManager : MonoBehaviour
 		Vector2 mouseWorlPos = Camera.main.ScreenToWorldPoint( Input.mousePosition );
 		m_hoveredCellGridPos = m_tilemap.WorldToCell( mouseWorlPos );
 
-
 		m_hoveredCellCenterPos = m_tilemap.HasTile( m_hoveredCellGridPos ) ? m_tilemap.GetCellCenterWorld( m_hoveredCellGridPos ) : INVALID_VECTOR;
 	}
 
+	// TODO: make into a coroutine so we can see what's happening
 	private void FeedOnReserve()
 	{
-		while (m_foodReserve > 0 && !IsStomachFull )
+		while ( m_foodReserve > 0 && !IsStomachFull )
 		{
-			--m_foodReserve;
-			++m_stomachPoints;
-
-			FoodReserveChangeEvent?.Invoke( m_foodReserve );
-			StomachPointsChangeEvent?.Invoke( m_stomachPoints );
+			AddReservePoints( -1 );
+			AddStomachPoints( 1 );
 		}
 	}
 
+	private void AddReservePoints( int units )
+	{
+		m_foodReserve += (units);
+		FoodReserveChangeEvent?.Invoke( m_foodReserve );
+	}
 }

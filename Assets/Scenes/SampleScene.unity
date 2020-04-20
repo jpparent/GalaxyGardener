@@ -2184,6 +2184,10 @@ PrefabInstance:
       propertyPath: highlightTile
       value: 
       objectReference: {fileID: 1215603487}
+    - target: {fileID: 2643268066025559579, guid: 1ac62a27ebb975e43bcf41f9011366c5, type: 3}
+      propertyPath: MAX_FOOD_RESERVE
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1ac62a27ebb975e43bcf41f9011366c5, type: 3}
 --- !u!1001 &4349683702449897173
