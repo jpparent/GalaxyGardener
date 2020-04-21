@@ -712,7 +712,7 @@ GameObject:
   - component: {fileID: 209455196}
   - component: {fileID: 209455195}
   m_Layer: 5
-  m_Name: Button
+  m_Name: FarewellButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1158,7 +1158,7 @@ GameObject:
   - component: {fileID: 596742271}
   - component: {fileID: 596742270}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: OpaquePanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1334,7 +1334,7 @@ GameObject:
   - component: {fileID: 901474507}
   - component: {fileID: 901474506}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: RecapText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2285,7 +2285,7 @@ GameObject:
   - component: {fileID: 1674627971}
   - component: {fileID: 1674627970}
   m_Layer: 5
-  m_Name: Text (TMP) (1)
+  m_Name: SignatureText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3184,6 +3184,10 @@ PrefabInstance:
       propertyPath: m_gameOverCanvasObjectRef
       value: 
       objectReference: {fileID: 856316692}
+    - target: {fileID: 2643268066025559579, guid: 1ac62a27ebb975e43bcf41f9011366c5, type: 3}
+      propertyPath: m_gameOverRecapText
+      value: 
+      objectReference: {fileID: 901474506}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1ac62a27ebb975e43bcf41f9011366c5, type: 3}
 --- !u!1001 &4349683702449897173

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.Events;
 
 public class DayManager : MonoBehaviour
@@ -29,5 +30,10 @@ public class DayManager : MonoBehaviour
 		m_currentDay++;
 
 		BeginDayEvent?.Invoke(m_currentDay);
+	}
+
+	public int GetCurrentDay()
+	{
+		return m_currentDay;
 	}
 }

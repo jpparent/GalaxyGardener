@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Tilemaps;
@@ -17,6 +18,8 @@ public class GardenManager : MonoBehaviour
 	public UnityAction<int> FoodReserveChangeEvent;
 
 	public GameObject m_gameOverCanvasObjectRef;
+	public TMP_Text m_gameOverRecapText;
+
 	public GameObject m_cropReference;
 	public Tilemap m_tilemap;
 	public GameObject highlightTile;
@@ -36,6 +39,9 @@ public class GardenManager : MonoBehaviour
 	private DayManager m_dayManagerRef;
 	private int m_healthPoints;
 	private int m_stomachPoints;
+
+	private int m_plantedSeedsCount = 0;
+	private int m_harvestedCropsCount = 0;
 
 	// Start is called before the first frame update
 	private void Start()
@@ -91,7 +97,8 @@ public class GardenManager : MonoBehaviour
 
 	private void GameOver()
 	{
-		m_gameOverCanvasObjectRef.SetActive( true );
+		m_gameOverCanvasObjectRef?.SetActive( true );
+		m_gameOverRecapText?.SetText( "You survived {0} days by planting {1} seeds and harvesting {2} crops... in space!\n\nWell done. Now is the time for a well deserved rest. Thanks for playing this incomplete game !", m_dayManagerRef.GetCurrentDay(), m_plantedSeedsCount, m_harvestedCropsCount );
 	}
 
 	// Update is called once per frame
@@ -143,6 +150,7 @@ public class GardenManager : MonoBehaviour
 		}
 
 		m_positionCropsList.Remove( m_hoveredCellGridPos.ToString() );
+		++m_harvestedCropsCount;
 	}
 
 	private void AddStomachPoints( int stomachPointsToAdd )
@@ -155,6 +163,8 @@ public class GardenManager : MonoBehaviour
 	{
 		var newCrop = Instantiate( m_cropReference, m_hoveredCellCenterPos, Quaternion.identity );
 		m_positionCropsList.Add( m_hoveredCellGridPos.ToString(), newCrop );
+
+		++m_plantedSeedsCount;
 	}
 
 	private void UpdateTileHighlight()
