@@ -452,7 +452,8 @@ PrefabInstance:
       propertyPath: m_AssetsPPU
       value: 100
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -1990729650442943915, guid: 081bfc5aedbfb574dbbcd6bb66a5173c, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 081bfc5aedbfb574dbbcd6bb66a5173c, type: 3}
 --- !u!1 &1940318229
 GameObject:
@@ -671,7 +672,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 85.6
+  m_fontSize: 85
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1

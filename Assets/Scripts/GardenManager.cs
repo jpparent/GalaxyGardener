@@ -16,6 +16,7 @@ public class GardenManager : MonoBehaviour
 	public UnityAction<int> StomachPointsChangeEvent;
 	public UnityAction<int> FoodReserveChangeEvent;
 
+	public GameObject m_gameOverCanvasObjectRef;
 	public GameObject m_cropReference;
 	public Tilemap m_tilemap;
 	public GameObject highlightTile;
@@ -90,7 +91,7 @@ public class GardenManager : MonoBehaviour
 
 	private void GameOver()
 	{
-		throw new NotImplementedException();
+		m_gameOverCanvasObjectRef.SetActive( true );
 	}
 
 	// Update is called once per frame
